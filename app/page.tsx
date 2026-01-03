@@ -107,7 +107,7 @@ export default function Home() {
             <div className="flex-1 space-y-6 text-center lg:text-left">
               <header className="space-y-4">
                 <div className="space-y-3">
-                  <h1 className="font-serif text-4xl font-bold text-text-primary sm:text-5xl lg:text-6xl">
+                  <h1 className="font-serif text-4xl font-bold text-text-primary sm:text-5xl w-full">
                     {professorData.name}
                   </h1>
                   <p className="text-xl text-text-secondary sm:text-2xl">
@@ -190,7 +190,7 @@ export default function Home() {
               </header>
 
               <section className="space-y-4 pt-4">
-                <div className="text-lg leading-relaxed text-text-primary whitespace-pre-line">
+                <div className="text-lg leading-relaxed text-text-primary whitespace-pre-line text-justify">
                   {professorData.bio.split("\n").map((paragraph, index) => (
                     <p key={index} className="mb-4 last:mb-0">
                       {paragraph.trim()}
