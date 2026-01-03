@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { Linkedin, Github, Twitter, Instagram, MessageCircle } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { professorData } from "@/data/professor";
 
 // Generate dynamic metadata for SEO
@@ -45,11 +45,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Home() {
   // Get social media links that are not empty
   const socialLinks = [
-    { name: "LinkedIn", url: professorData.socialMedia.linkedin, icon: Linkedin, color: "bg-blue-600", iconColor: "text-white" },
-    { name: "GitHub", url: professorData.socialMedia.github, icon: Github, color: "bg-gray-900 dark:bg-gray-100", iconColor: "text-white dark:text-gray-900" },
-    { name: "Twitter", url: professorData.socialMedia.twitter, icon: Twitter, color: "bg-gray-900 dark:bg-gray-100", iconColor: "text-white dark:text-gray-900" },
-    { name: "Instagram", url: professorData.socialMedia.instagram, icon: Instagram, color: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500", iconColor: "text-white" },
-    { name: "WhatsApp", url: professorData.socialMedia.whatsapp, icon: MessageCircle, color: "bg-green-500", iconColor: "text-white" },
+    { name: "LinkedIn", url: professorData.socialMedia.linkedin, icon: Linkedin, color: "bg-blue-600", iconColor: "text-white", type: "component" },
+    { name: "GitHub", url: professorData.socialMedia.github, iconPath: "/github.svg", color: "bg-gray-900 dark:bg-gray-100", type: "svg" },
+    { name: "Twitter", url: professorData.socialMedia.twitter, iconPath: "/x.svg", color: "bg-black dark:bg-black", type: "svg" },
+    { name: "Instagram", url: professorData.socialMedia.instagram, iconPath: "/instagram.svg", color: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500", type: "svg" },
+    { name: "WhatsApp", url: professorData.socialMedia.whatsapp, iconPath: "/whatsapp.svg", color: "bg-green-500", type: "svg" },
   ].filter((link) => link.url && link.url.trim() !== "");
 
   // Build sameAs array for structured data
@@ -85,18 +85,20 @@ export default function Home() {
       />
       
       <div className="min-h-screen bg-background">
-        <main className="mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-24 lg:py-32">
-          <article className="flex flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16">
+        <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-24 lg:py-32">
+          <article className="flex flex-col items-center gap-8 sm:gap-10 lg:flex-row lg:items-start lg:gap-16">
             {/* Profile Image Section */}
             <div className="shrink-0">
-              <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-[var(--border)] bg-[var(--border)] shadow-lg sm:h-80 sm:w-80">
+              <div className="relative h-48 w-48 overflow-hidden rounded-full border-4 border-border bg-border shadow-2xl sm:h-64 sm:w-64 lg:h-80 lg:w-80" style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}>
                 <Image
                   src={professorData.profileImage}
                   alt={`${professorData.name} - ${professorData.title} at ${professorData.university}`}
                   width={320}
                   height={320}
                   className="h-full w-full object-cover"
+                  sizes="(max-width: 640px) 192px, (max-width: 1024px) 256px, 320px"
                   priority
+                  quality={90}
                 />
               </div>
             </div>
@@ -120,19 +122,42 @@ export default function Home() {
                 {socialLinks.length > 0 && (
                   <div className="flex items-center justify-center gap-3 lg:justify-start">
                     {socialLinks.map((social) => {
-                      const IconComponent = social.icon;
-                      return (
-                        <a
-                          key={social.name}
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex h-10 w-10 items-center justify-center rounded-full ${social.color} ${social.iconColor} transition-all hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2`}
-                          aria-label={`Visit ${professorData.name}'s ${social.name} profile`}
-                        >
-                          <IconComponent className="h-5 w-5" aria-hidden="true" />
-                        </a>
-                      );
+                      if (social.type === "component" && social.icon) {
+                        const IconComponent = social.icon;
+                        return (
+                          <a
+                            key={social.name}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full ${social.color} ${social.iconColor} transition-all hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2`}
+                            aria-label={`Visit ${professorData.name}'s ${social.name} profile`}
+                          >
+                            <IconComponent className="h-5 w-5" aria-hidden="true" />
+                          </a>
+                        );
+                      } else if (social.type === "svg" && social.iconPath) {
+                        return (
+                          <a
+                            key={social.name}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full ${social.color} transition-all hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2`}
+                            aria-label={`Visit ${professorData.name}'s ${social.name} profile`}
+                          >
+                            <Image
+                              src={social.iconPath}
+                              alt={`${social.name} icon`}
+                              width={20}
+                              height={20}
+                              className="h-5 w-5 brightness-0 invert"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        );
+                      }
+                      return null;
                     })}
                   </div>
                 )}

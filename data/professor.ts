@@ -22,7 +22,7 @@ export const professorData = {
     description about the professor, their research interests, academic
     background, and notable achievements. Keep it concise and
     professional.]`,
-  profileImage: "/profile.jpg",
+  profileImage: "/profile.jpeg",
   researchPapersUrl: "#",
   siteUrl: "https://example.com", // Update with actual site URL
   email: "", // Optional: professor's email
