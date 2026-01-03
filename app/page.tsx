@@ -146,7 +146,7 @@ export default function Home() {
                             className={`flex h-10 w-10 items-center justify-center rounded-full ${social.color} transition-all hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2`}
                             aria-label={`Visit ${professorData.name}'s ${social.name} profile`}
                           >
-                            <Image
+                            <img
                               src={social.iconPath}
                               alt={`${social.name} icon`}
                               width={20}
