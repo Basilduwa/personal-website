@@ -22,7 +22,7 @@ export const professorData = {
   profileImage: "/profile.jpeg",
   researchPapersUrl: "https://scholar.google.com/citations?user=CFvM1nEAAAAJ&hl=en&oi=ao&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAPF9cFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafjl4j7BDtQqsPRmNDDkvYzq_Cm4dTxxWBHc4vtQfPJ2eWlHFO9h7Ez_5yNqg_aem_IbVaByEvp-Ej_3TMOSRC2Q",
   siteUrl: "https://example.com", // Update with actual site URL
-  email: " basilduwa@gmail.com", // Optional: professor's email
+  email: "basilduwa@gmail.com", // Optional: professor's email
   phone: "", // Optional: professor's phone number
   keywords: "professor, research, academic, publications, university", // SEO keywords
   socialMedia: {

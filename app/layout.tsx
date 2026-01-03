@@ -17,7 +17,9 @@ const playfairDisplay = Playfair_Display({
 
 // Base metadata - will be overridden by page-specific metadata
 export const metadata: Metadata = {
-  metadataBase: new URL(professorData.siteUrl),
+  metadataBase: professorData.siteUrl && professorData.siteUrl !== "https://example.com" 
+    ? new URL(professorData.siteUrl) 
+    : undefined,
   title: {
     default: "Professor - Research & Publications",
     template: "%s | Professor Profile",
